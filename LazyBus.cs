@@ -53,12 +53,12 @@ public class LazyBus : LogBehaviour
         }
     }
 
-    public static void register(string keyword, Action callback)
+    public static void Register(string keyword, Action callback)
     {
         globalBus.register(keyword, callback);
     }
 
-    public static void invoke(string keyword)
+    public static void Invoke(string keyword)
     {
         globalBus.invoke(keyword);
     }
