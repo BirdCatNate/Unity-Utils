@@ -33,4 +33,34 @@ public class LazyBus : LogBehaviour
         }
         else LogWarning( "failed to invoke: "+keyword );
     }
+    
+// The following code enables the usage of a Global LazyBus, in case I'm feeling extra lazy.
+// All functionality is the same as an ordinary LazyBus. But you register/invoke using base class instead of an instantiated object.
+#region globalBus
+    static LazyBus _globalBus;
+    static LazyBus globalBus
+    {
+        get
+        {
+            if(_globalBus == null)
+            {
+                GameObject instance = new GameObject("GlobalBus");
+                instance.AddComponent<LazyBus>();
+                _globalBus = instance.GetComponent<LazyBus>();
+            }
+
+            return _globalBus;
+        }
+    }
+
+    public static void register(string keyword, Action callback)
+    {
+        globalBus.register(keyword, callback);
+    }
+
+    public static void invoke(string keyword)
+    {
+        globalBus.invoke(keyword);
+    }
+#endregion
 }
